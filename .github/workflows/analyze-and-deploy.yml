@@ -11,6 +11,10 @@ on:
       - "requirements.txt"
       - ".github/workflows/analyze-and-deploy.yml"
 
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+  PYTHONUNBUFFERED: "1"
+
 permissions:
   contents: read
   pages: write
@@ -23,6 +27,7 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
+    timeout-minutes: 20
 
     steps:
       - name: Checkout
@@ -32,17 +37,55 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: "3.11"
+          cache: "pip"
+
+      - name: Debug repository tree
+        run: |
+          echo "PWD=$(pwd)"
+          echo "===== ls -la ====="
+          ls -la
+          echo "===== top-level files ====="
+          find . -maxdepth 3 -type f | sort
+
+      - name: Validate required files
+        run: |
+          test -f requirements.txt || (echo "requirements.txt not found" && exit 1)
+          test -f scripts/analyze.py || (echo "scripts/analyze.py not found" && exit 1)
+          test -f scripts/build_site.py || (echo "scripts/build_site.py not found" && exit 1)
+          test -f config/control_group.json || (echo "config/control_group.json not found" && exit 1)
+
+          mkdir -p data/batch dist docs
 
       - name: Install dependencies
         run: |
+          python -V
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: Analyze control group
-        run: python scripts/analyze.py
+      - name: Run analyze
+        run: |
+          python scripts/analyze.py
+          echo "===== dist after analyze ====="
+          ls -la dist || true
+          test -f dist/report.json || (echo "dist/report.json not created" && exit 1)
 
       - name: Build static site
-        run: python scripts/build_site.py
+        run: |
+          python scripts/build_site.py
+          echo "===== docs after build ====="
+          ls -la docs || true
+          test -f docs/index.html || (echo "docs/index.html not created" && exit 1)
+          test -f docs/report.json || (echo "docs/report.json not created" && exit 1)
+
+      - name: Upload debug artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-debug-output
+          path: |
+            dist
+            docs
+          if-no-files-found: warn
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
