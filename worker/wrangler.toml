@@ -1,0 +1,45 @@
+# ═══════════════════════════════════════
+# SHERPAIN21 - Worker Configuration (v2.1)
+# ═══════════════════════════════════════
+
+name = "sherpa-api"
+main = "src/index.js"
+compatibility_date = "2024-01-01"
+compatibility_flags = ["nodejs_compat"]
+
+# ── 환경변수 (공개) ──
+[vars]
+ENVIRONMENT = "production"
+FRONTEND_URL = "https://sherpa-in.com"
+KAKAO_CLIENT_ID = ""
+NAVER_CLIENT_ID = ""
+GOOGLE_CLIENT_ID = ""
+CF_IMAGES_ACCOUNT_ID = "23091843beab89af2fee0ee22fd855bf"
+CF_IMAGES_DELIVERY_PREFIX = ""
+
+# ── D1 Database ──
+[[d1_databases]]
+binding = "DB"
+database_name = "sherpa-db"
+database_id = "af152582-9250-4d97-b6c8-5c402988ec1e"
+
+# ── 시크릿 (CLI로 등록) ──
+# wrangler secret put JWT_SECRET            ✅ 등록 완료
+# wrangler secret put YOUTUBE_API_KEY
+# wrangler secret put GEMINI_API_KEY
+# wrangler secret put GROQ_API_KEY
+# wrangler secret put NAVER_AD_API_KEY
+# wrangler secret put NAVER_AD_SECRET_KEY
+# wrangler secret put NAVER_AD_CUSTOMER_ID
+# wrangler secret put NAVER_DATALAB_CLIENT_ID
+# wrangler secret put NAVER_DATALAB_SECRET
+# wrangler secret put CF_IMAGES_API_TOKEN   ← 추가 필요
+
+# ── 크론 트리거 ──
+[triggers]
+crons = ["0 6 * * *"]
+
+# ── 로컬 개발 ──
+[dev]
+port = 8787
+local_protocol = "http"
