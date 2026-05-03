@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>모집 및 의뢰 상세 - Sherpain21</title>
+  <link rel="stylesheet" href="../../src/css/app.css" />
+  <link rel="stylesheet" href="../../src/css/topbar.css" />
+  <link rel="stylesheet" href="../../src/css/board-editor.css" />
+  <script defer src="../../src/js/config.js"></script>
+  <script defer src="../../src/js/api.js"></script>
+  <script defer src="../../src/js/sidebar.js"></script>
+  <script defer src="../../src/js/topbar.js"></script>
+  <script defer src="../../src/js/escrow-view.js"></script>
+</head>
+<body data-page="missions-view">
+  <div class="app-layout">
+    <div id="sidebar-container"></div>
+    <div class="app-main-wrapper">
+      <div id="topbar-container"></div>
+      <main class="app-content">
+        <div class="board-doc-page">
+          <section class="board-doc-shell">
+            <div class="board-doc-header">
+              <div class="board-doc-header-main">
+                <div class="board-doc-kicker" id="mission-view-kicker">모집 및 의뢰</div>
+                <h1 class="board-doc-title" id="mission-view-title">미션을 불러오는 중입니다</h1>
+                <p class="board-doc-desc" id="mission-view-desc">상세 조건과 지원 현황을 확인하고 있습니다.</p>
+              </div>
+              <div class="board-doc-actions">
+                <a class="btn btn-secondary" id="mission-view-back" href="/app/escrow/missions.html?tab=recruit">목록으로</a>
+                <button class="btn btn-primary" id="mission-view-apply-btn" type="button">지원하기</button>
+              </div>
+            </div>
+
+            <div class="board-doc-body">
+              <div class="board-meta" id="mission-view-meta"></div>
+
+              <section class="board-article">
+                <div class="board-modal-note" id="mission-view-notice">모집 조건을 불러오는 중입니다.</div>
+                <div class="board-article-content" id="mission-view-content"></div>
+              </section>
+
+              <section class="board-comment-section">
+                <div class="board-comment-count">참여 / 지원 현황</div>
+                <div id="mission-application-list"></div>
+              </section>
+            </div>
+          </section>
+        </div>
+      </main>
+    </div>
+  </div>
+</body>
+</html>

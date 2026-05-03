@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>프로그램 문의 글쓰기 - Sherpain21</title>
+  <link rel="stylesheet" href="../../src/css/app.css" />
+  <link rel="stylesheet" href="../../src/css/topbar.css" />
+  <link rel="stylesheet" href="../../src/css/board-editor.css" />
+  <script defer src="../../src/js/config.js"></script>
+  <script defer src="../../src/js/sidebar.js"></script>
+  <script defer src="../../src/js/topbar.js"></script>
+  <script defer src="../../src/js/inquiry-write.js"></script>
+</head>
+<body data-page="support-inquiry-write">
+  <div class="app-layout"><div id="sidebar-container"></div><div class="app-main-wrapper"><div id="topbar-container"></div><main class="app-content"><div class="board-doc-page"><section class="board-doc-shell"><div class="board-doc-header"><div class="board-doc-header-main"><div class="board-doc-kicker">프로그램 문의 글쓰기</div><h1 class="board-doc-title" id="inquiry-write-title-display">문의글 작성</h1><p class="board-doc-desc" id="inquiry-write-desc-display">오류/사용 문의와 기능 건의를 페이지형으로 작성합니다.</p></div><div class="board-doc-actions"><a class="btn btn-secondary" id="inquiry-write-back" href="/app/support/inquiry.html?tab=usage">목록으로</a></div></div><div class="board-doc-body"><section class="board-editor-main"><form id="inquiry-page-write-form" class="form-row"><div class="board-editor-field"><label class="board-editor-label" for="inquiry-page-write-type">문의 유형</label><select class="select board-compact-control" id="inquiry-page-write-type"><option value="usage">사용 오류/방법 문의</option><option value="feature">기능 건의</option></select></div><div class="board-editor-field"><label class="board-editor-label" for="inquiry-page-write-title">제목</label><input class="input board-compact-control" id="inquiry-page-write-title" placeholder="문의 제목을 입력해 주세요" /></div><div class="board-editor-field"><label class="board-editor-label" for="inquiry-editor-surface">문의 내용</label><div class="input board-editor-surface" id="inquiry-editor-surface" contenteditable="true"></div></div><div class="modal-footer" style="padding:0; justify-content:flex-end; margin-top:4px;"><button class="btn btn-ghost" type="button" id="inquiry-write-reset">초기화</button><button class="btn btn-primary" type="submit">등록하기</button></div></form></section></div></section></div></main></div></div>
+</body>
+</html>

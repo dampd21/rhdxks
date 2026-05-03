@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>프로그램 문의 - Sherpain21</title>
+  <link rel="stylesheet" href="../../src/css/app.css" />
+  <link rel="stylesheet" href="../../src/css/topbar.css" />
+  <link rel="stylesheet" href="../../src/css/board.css" />
+  <script defer src="../../src/js/config.js"></script>
+  <script defer src="../../src/js/sidebar.js"></script>
+  <script defer src="../../src/js/topbar.js"></script>
+  <script defer src="../../src/js/inquiry.js"></script>
+</head>
+<body data-page="support-inquiry">
+  <div class="app-layout">
+    <div id="sidebar-container"></div>
+    <div class="app-main-wrapper">
+      <div id="topbar-container"></div>
+      <main class="app-content">
+        <div class="board-page">
+          <section class="board-shell">
+            <div class="board-tabs" aria-label="프로그램 문의 탭">
+              <button class="board-tab" type="button" data-inquiry-tab="usage">사용 오류/방법 문의</button>
+              <button class="board-tab" type="button" data-inquiry-tab="feature">기능 건의</button>
+            </div>
+
+            <div class="board-heading">
+              <div class="board-heading-main">
+                <div class="board-section-title" id="inquiry-current-title">사용 오류/방법 문의</div>
+                <div class="board-section-desc" id="inquiry-current-desc">화면 오류, 사용법, 설정 문제 등 실사용 중 불편을 접수합니다.</div>
+              </div>
+              <div class="board-heading-actions">
+                <a class="btn btn-primary" id="inquiry-open-page-btn" href="/app/support/inquiry-write.html?type=usage">문의글 작성하기</a>
+              </div>
+            </div>
+
+            <div class="board-content">
+              <div class="board-content-toolbar">
+                <div class="board-block-title">문의 목록</div>
+                <div class="board-search-row" id="inquiry-search-box">
+                  <select class="select board-search-select" id="inquiry-search-scope">
+                    <option value="all">통합 검색</option>
+                    <option value="title">제목</option>
+                    <option value="content">내용</option>
+                    <option value="title_content">제목+내용</option>
+                    <option value="author">작성자</option>
+                  </select>
+                  <input class="input board-search-input" id="inquiry-search-input" placeholder="검색어를 입력하세요" />
+                </div>
+              </div>
+              <div id="inquiry-table-wrap"></div>
+            </div>
+          </section>
+        </div>
+      </main>
+    </div>
+  </div>
+</body>
+</html>

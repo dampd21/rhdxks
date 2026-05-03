@@ -1,0 +1,380 @@
+/* ================================================================
+   Sherpain21 — marketplace.css
+   제휴사 및 자유홍보 / 모집 및 의뢰 공통 화면 스타일
+   ================================================================ */
+
+.services-page,
+.missions-page {
+  display: grid;
+  gap: 24px;
+}
+
+.services-shell,
+.missions-shell {
+  background: var(--color-white);
+  border: 1px solid var(--color-gray-200);
+  border-radius: 20px;
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+}
+
+.services-tabs,
+.missions-tabs {
+  display: flex;
+  gap: 0;
+  overflow-x: auto;
+  border-bottom: 1px solid var(--color-gray-200);
+  scrollbar-width: none;
+}
+
+.services-tabs::-webkit-scrollbar,
+.missions-tabs::-webkit-scrollbar {
+  display: none;
+}
+
+.services-tab,
+.missions-tab {
+  flex: 0 0 auto;
+  min-height: 52px;
+  padding: 0 18px;
+  background: transparent;
+  border: 0;
+  border-bottom: 2px solid transparent;
+  color: var(--color-gray-500);
+  font-size: 14px;
+  font-weight: 600;
+  transition: var(--transition-fast);
+}
+
+.services-tab:hover,
+.missions-tab:hover {
+  color: var(--color-gray-800);
+  background: rgba(37, 99, 235, 0.03);
+}
+
+.services-tab.is-active,
+.missions-tab.is-active {
+  color: var(--color-accent);
+  border-bottom-color: var(--color-accent);
+  background: rgba(37, 99, 235, 0.03);
+}
+
+.services-heading,
+.missions-heading {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 22px 24px 18px;
+  border-bottom: 1px solid var(--color-gray-200);
+}
+
+.services-heading-main,
+.missions-heading-main {
+  min-width: 0;
+  flex: 1;
+}
+
+.services-section-title,
+.missions-section-title {
+  font-size: 22px;
+  line-height: 1.25;
+  font-weight: 800;
+  color: var(--color-gray-900);
+  letter-spacing: -0.03em;
+}
+
+.services-section-desc,
+.missions-section-desc {
+  margin-top: 8px;
+  font-size: 14px;
+  color: var(--color-gray-500);
+  line-height: 1.7;
+}
+
+.services-heading-actions,
+.missions-heading-actions {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.services-content,
+.missions-content {
+  padding: 20px 24px 24px;
+  display: grid;
+  gap: 16px;
+}
+
+.services-content-toolbar,
+.missions-content-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  flex-wrap: wrap;
+  min-height: 36px;
+}
+
+.services-block-title,
+.missions-block-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--color-gray-700);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.services-search-row,
+.missions-search-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.services-search-select,
+.missions-search-select {
+  width: 138px;
+  flex-shrink: 0;
+}
+
+.services-search-input,
+.missions-search-input {
+  width: 240px;
+  max-width: 100%;
+  flex: 1;
+  min-width: 180px;
+}
+
+.services-search-row .select,
+.services-search-row .input,
+.missions-search-row .select,
+.missions-search-row .input {
+  height: 36px;
+  min-height: 36px;
+  padding: 0 12px;
+  border-radius: 10px;
+  font-size: 13px;
+  line-height: 36px;
+}
+
+.services-table-wrap,
+.missions-table-wrap {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.services-table,
+.missions-table {
+  width: 100%;
+  min-width: 880px;
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+
+.missions-table {
+  min-width: 940px;
+}
+
+.services-table th,
+.services-table td,
+.missions-table th,
+.missions-table td {
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--color-gray-200);
+  font-size: 14px;
+  vertical-align: middle;
+}
+
+.services-table thead th,
+.missions-table thead th {
+  background: var(--color-gray-50);
+  color: var(--color-gray-500);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.services-table tbody tr:hover td,
+.missions-table tbody tr:hover td {
+  background: rgba(37, 99, 235, 0.03);
+}
+
+.services-table .col-status,
+.services-table .col-category,
+.services-table .col-author,
+.services-table .col-date,
+.services-table .col-views,
+.services-table .col-action,
+.missions-table .col-type,
+.missions-table .col-status,
+.missions-table .col-owner,
+.missions-table .col-date,
+.missions-table .col-action {
+  text-align: center;
+  white-space: nowrap;
+}
+
+.services-table .col-views,
+.missions-table .col-reward {
+  text-align: right;
+}
+
+.services-title-cell,
+.missions-title-cell {
+  word-break: keep-all;
+  line-height: 1.6;
+}
+
+.services-title-text,
+.missions-title-text {
+  display: inline-block;
+  color: var(--color-gray-900);
+  font-weight: 700;
+}
+
+.services-subtext,
+.missions-subtext {
+  margin-top: 4px;
+  font-size: 12px;
+  color: var(--color-gray-500);
+  line-height: 1.6;
+}
+
+.services-pagination,
+.missions-pagination {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  padding-top: 6px;
+}
+
+.services-page-btn,
+.missions-page-btn {
+  min-width: 36px;
+  height: 36px;
+  padding: 0 10px;
+  border-radius: 10px;
+  border: 1px solid var(--color-gray-200);
+  background: var(--color-white);
+  color: var(--color-gray-600);
+  font-size: 13px;
+  font-weight: 700;
+  transition: var(--transition-fast);
+}
+
+.services-page-btn:hover,
+.missions-page-btn:hover {
+  background: var(--color-gray-50);
+  color: var(--color-gray-900);
+  border-color: var(--color-gray-300);
+}
+
+.services-page-btn.is-active,
+.missions-page-btn.is-active {
+  background: var(--color-accent);
+  border-color: var(--color-accent);
+  color: var(--color-white);
+}
+
+.services-empty,
+.missions-empty {
+  padding: 48px 24px;
+  border: 1px dashed var(--color-gray-200);
+  border-radius: 16px;
+  text-align: center;
+  background: var(--color-gray-50);
+}
+
+.services-empty-title,
+.missions-empty-title {
+  font-size: 16px;
+  font-weight: 800;
+  color: var(--color-gray-800);
+}
+
+.services-empty-desc,
+.missions-empty-desc {
+  margin-top: 8px;
+  font-size: 13px;
+  color: var(--color-gray-500);
+  line-height: 1.7;
+}
+
+.services-modal-note,
+.missions-modal-note {
+  padding: 14px 16px;
+  border-radius: 14px;
+  background: var(--color-gray-50);
+  border: 1px solid var(--color-gray-200);
+  font-size: 13px;
+  color: var(--color-gray-600);
+  line-height: 1.7;
+}
+
+.services-action-btn,
+.missions-action-btn {
+  min-width: 96px;
+  height: 34px;
+  padding: 0 12px;
+  border-radius: 10px;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.receipt-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 14px;
+}
+
+.receipt-item {
+  padding: 14px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.78);
+  border: 1px solid rgba(245, 158, 11, 0.22);
+}
+
+.receipt-item-label {
+  font-size: 12px;
+  color: var(--color-gray-600);
+}
+
+.receipt-item-value {
+  margin-top: 6px;
+  font-family: var(--font-mono);
+  font-size: 18px;
+  font-weight: 700;
+}
+
+@media (max-width: 900px) {
+  .services-heading,
+  .services-content-toolbar,
+  .services-search-row,
+  .missions-heading,
+  .missions-content-toolbar,
+  .missions-search-row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .services-heading-actions,
+  .services-search-select,
+  .services-search-input,
+  .missions-heading-actions,
+  .missions-search-select,
+  .missions-search-input {
+    width: 100%;
+  }
+
+  .receipt-grid {
+    grid-template-columns: 1fr;
+  }
+}

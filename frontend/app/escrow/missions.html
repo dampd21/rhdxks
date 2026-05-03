@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>모집 및 의뢰 - Sherpain21</title>
+  <link rel="stylesheet" href="../../src/css/app.css" />
+  <link rel="stylesheet" href="../../src/css/topbar.css" />
+  <link rel="stylesheet" href="../../src/css/marketplace.css" />
+  <script defer src="../../src/js/config.js"></script>
+  <script defer src="../../src/js/sidebar.js"></script>
+  <script defer src="../../src/js/topbar.js"></script>
+  <script defer src="../../src/js/escrow.js"></script>
+</head>
+<body data-page="missions">
+  <div class="app-layout">
+    <div id="sidebar-container"></div>
+    <div class="app-main-wrapper">
+      <div id="topbar-container"></div>
+      <main class="app-content">
+        <div class="missions-page">
+          <section class="missions-shell">
+            <div class="missions-tabs" aria-label="모집 및 의뢰 탭">
+              <button class="missions-tab" type="button" data-mission-tab="recruit">모집 (의뢰하기)</button>
+              <button class="missions-tab" type="button" data-mission-tab="apply">의뢰 (수행하기)</button>
+            </div>
+
+            <div class="missions-heading">
+              <div class="missions-heading-main">
+                <div class="missions-section-title" id="missions-current-title">모집 (의뢰하기)</div>
+                <div class="missions-section-desc" id="missions-current-desc">리뷰/체험단 미션을 등록하고 플랫폼에 예치해 안전하게 모집을 진행합니다.</div>
+              </div>
+              <div class="missions-heading-actions">
+                <button class="btn btn-primary" id="mission-open-modal-btn" type="button">미션 등록하기</button>
+              </div>
+            </div>
+
+            <div class="missions-content">
+              <div class="missions-content-toolbar">
+                <div class="missions-block-title" id="missions-list-title">모집 리스트</div>
+                <div class="missions-search-row" id="missions-search-box">
+                  <select class="select missions-search-select" id="missions-search-scope">
+                    <option value="all">통합 검색</option>
+                    <option value="title">제목</option>
+                    <option value="content">내용</option>
+                    <option value="title_content">제목+내용</option>
+                    <option value="author">등록자</option>
+                  </select>
+                  <input class="input missions-search-input" id="missions-search-input" placeholder="검색어를 입력하세요" />
+                </div>
+              </div>
+              <div id="missions-table-wrap"></div>
+            </div>
+          </section>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <div class="modal" id="mission-create-modal" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <div>
+          <h2 class="modal-title">신규 미션 등록 (눈덩이 예치)</h2>
+          <p class="modal-subtitle">의뢰 등록 즉시 예치가 걸리며, 정산 시 플랫폼 수수료 10%가 포함된 총 필요 눈덩이를 기준으로 계산합니다.</p>
+        </div>
+        <button class="modal-close" type="button" data-modal-close="mission-create-modal" aria-label="모달 닫기">×</button>
+      </div>
+      <form id="mission-create-form">
+        <div class="modal-body">
+          <div class="missions-modal-note">예시 구조입니다. 실제 운영 시에는 영수증/이미지 제공 여부, 검수 기준, 마감일, 파일 첨부를 함께 입력하도록 확장할 수 있습니다.</div>
+          <div class="form-grid-2">
+            <div>
+              <label class="label" for="mission-type-input">미션 유형</label>
+              <select class="select" id="mission-type-input">
+                <option>영수증 리뷰</option>
+                <option>블로그/카페 배포</option>
+                <option>체험단 방문</option>
+                <option>SNS 업로드</option>
+              </select>
+            </div>
+            <div>
+              <label class="label" for="mission-reward-input">보상 눈덩이 (최소 500)</label>
+              <input class="input" id="mission-reward-input" type="number" min="500" step="100" value="500" />
+            </div>
+          </div>
+          <div>
+            <label class="label" for="mission-title-input">미션 제목</label>
+            <input class="input" id="mission-title-input" placeholder="예: 병원 블로그 체험단 후기 1건 모집" />
+          </div>
+          <div>
+            <label class="label" for="mission-desc-input">상세 내용 및 가이드라인</label>
+            <textarea class="textarea" id="mission-desc-input" placeholder="작업 조건, 제공 자료, 검수 기준, 완료 조건을 자세히 적어 주세요"></textarea>
+          </div>
+          <div class="missions-modal-note" style="background: rgba(245, 158, 11, 0.1); border-color: rgba(245, 158, 11, 0.22);">
+            <strong>실시간 예치 계산기</strong>
+            <div class="receipt-grid">
+              <div class="receipt-item">
+                <div class="receipt-item-label">수행자 보상금</div>
+                <div class="receipt-item-value" id="receipt-reward">500 눈덩이</div>
+              </div>
+              <div class="receipt-item">
+                <div class="receipt-item-label">플랫폼 수수료 (10%)</div>
+                <div class="receipt-item-value" id="receipt-fee">50 눈덩이</div>
+              </div>
+              <div class="receipt-item">
+                <div class="receipt-item-label">총 예치 필요 눈덩이</div>
+                <div class="receipt-item-value" id="receipt-total">550 눈덩이</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-ghost" type="button" data-modal-close="mission-create-modal">취소</button>
+          <button class="btn btn-primary" type="submit">등록하기</button>
+        </div>
+      </form>
+    </div>
+  </div>
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js/v8c78df7c7c0f484497ecbca7046644da1771523124516" integrity="sha512-8DS7rgIrAmghBFwoOTujcf6D9rXvH8xm8JQ1Ja01h9QX8EzXldiszufYa4IFfKdLUKTTrnSFXLDkUEOTrZQ8Qg==" data-cf-beacon='{"version":"2024.11.0","token":"1954b47c125f43f8b4338b3c4f804e4f","server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
+</body>
+</html>

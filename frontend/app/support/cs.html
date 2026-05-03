@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>고객센터 - Sherpain21</title>
+  <link rel="stylesheet" href="../../src/css/app.css" />
+  <link rel="stylesheet" href="../../src/css/topbar.css" />
+  <link rel="stylesheet" href="../../src/css/board.css" />
+  <script defer src="../../src/js/config.js"></script>
+  <script defer src="../../src/js/sidebar.js"></script>
+  <script defer src="../../src/js/topbar.js"></script>
+  <script defer src="../../src/js/cs.js"></script>
+</head>
+<body data-page="support-cs">
+  <div class="app-layout">
+    <div id="sidebar-container"></div>
+    <div class="app-main-wrapper">
+      <div id="topbar-container"></div>
+      <main class="app-content">
+        <div class="board-page">
+          <section class="board-shell">
+            <div class="board-tabs" aria-label="고객센터 탭">
+              <button class="board-tab" type="button" data-cs-tab="faq">자주 묻는 질문 (FAQ)</button>
+              <button class="board-tab" type="button" data-cs-tab="qna">Q&A 게시판</button>
+              <button class="board-tab" type="button" data-cs-tab="1on1">나의 1:1 문의</button>
+            </div>
+
+            <div class="board-heading">
+              <div class="board-heading-main">
+                <div class="board-section-title" id="cs-current-title">자주 묻는 질문 (FAQ)</div>
+                <div class="board-section-desc" id="cs-current-desc">결제, 계정, 이용 흐름 관련 자주 받는 질문을 빠르게 확인합니다.</div>
+              </div>
+              <div class="board-heading-actions">
+                <button class="btn btn-secondary" id="cs-kakao-btn" type="button">카카오톡 실시간 상담</button>
+                <button class="btn btn-primary" id="cs-open-modal-btn" type="button" style="display:none;">1:1 문의 작성하기</button>
+              </div>
+            </div>
+
+            <div class="board-content">
+              <div class="board-content-toolbar">
+                <div class="board-block-title" id="cs-list-title">목록</div>
+                <div class="board-search-row" id="cs-search-box">
+                  <select class="select board-search-select" id="cs-search-scope">
+                    <option value="all">통합 검색</option>
+                    <option value="title">제목</option>
+                    <option value="content">내용</option>
+                    <option value="title_content">제목+내용</option>
+                    <option value="author">작성자</option>
+                  </select>
+                  <input class="input board-search-input" id="cs-search-input" placeholder="검색어를 입력하세요" />
+                </div>
+              </div>
+              <div id="cs-table-wrap"></div>
+            </div>
+          </section>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <div class="modal" id="cs-write-modal" aria-hidden="true">
+    <div class="modal-dialog sm">
+      <div class="modal-header">
+        <div>
+          <h2 class="modal-title">1:1 문의 작성</h2>
+          <p class="modal-subtitle">결제/환불, 이용 불편, 계정/탈퇴처럼 민감한 문의는 1:1로 접수합니다.</p>
+        </div>
+        <button class="modal-close" type="button" data-modal-close="cs-write-modal" aria-label="모달 닫기">×</button>
+      </div>
+      <form id="cs-write-form">
+        <div class="modal-body">
+          <div class="board-modal-note">FAQ와 Q&A는 공개형 정보 확인용이며, 민감한 결제·계정 이슈는 1:1 문의에서만 작성하도록 구성했습니다.</div>
+          <div>
+            <label class="label" for="cs-write-category">문의 분류</label>
+            <select class="select" id="cs-write-category">
+              <option>결제 및 환불</option>
+              <option>이용 불편 사항</option>
+              <option>계정 및 탈퇴</option>
+              <option>기타 문의</option>
+            </select>
+          </div>
+          <div>
+            <label class="label" for="cs-write-title">문의 제목</label>
+            <input class="input" id="cs-write-title" placeholder="문의 제목을 입력하세요" />
+          </div>
+          <div>
+            <label class="label" for="cs-write-body">문의 내용</label>
+            <textarea class="textarea" id="cs-write-body" placeholder="상황 설명, 주문번호/결제일, 계정 정보 등을 가능한 범위 내에서 자세히 적어 주세요"></textarea>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-ghost" type="button" data-modal-close="cs-write-modal">취소</button>
+          <button class="btn btn-primary" type="submit">문의 등록하기</button>
+        </div>
+      </form>
+    </div>
+  </div>
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js/v8c78df7c7c0f484497ecbca7046644da1771523124516" integrity="sha512-8DS7rgIrAmghBFwoOTujcf6D9rXvH8xm8JQ1Ja01h9QX8EzXldiszufYa4IFfKdLUKTTrnSFXLDkUEOTrZQ8Qg==" data-cf-beacon='{"version":"2024.11.0","token":"1954b47c125f43f8b4338b3c4f804e4f","server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
+</body>
+</html>

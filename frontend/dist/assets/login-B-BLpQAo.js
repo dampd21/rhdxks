@@ -1,0 +1,1 @@
+import"./auth-Be7VZ7y5.js";/* empty css            */document.getElementById("login-form").onsubmit=async e=>{e.preventDefault(),document.getElementById("login-id").value,document.getElementById("login-pw").value,window.location.href="./app/dashboard.html"};

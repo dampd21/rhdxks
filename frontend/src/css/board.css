@@ -1,0 +1,454 @@
+/* ================================================================
+   Sherpain21 — board.css
+   커뮤니티 / 프로그램 문의 / 고객센터 공통 게시판 레이아웃
+   ================================================================ */
+
+.board-page {
+  display: grid;
+  gap: 24px;
+}
+
+.board-banner {
+  position: relative;
+  overflow: hidden;
+  border-radius: 22px;
+  padding: 26px 28px;
+  background: linear-gradient(135deg, #0d1b2a 0%, #2563eb 100%);
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.board-banner::after {
+  content: '';
+  position: absolute;
+  right: -32px;
+  top: -32px;
+  width: 180px;
+  height: 180px;
+  border-radius: 999px;
+  background: radial-gradient(circle, rgba(255,255,255,0.16) 0%, rgba(255,255,255,0) 72%);
+}
+
+.board-banner-label {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  min-height: 28px;
+  padding: 0 12px;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.14);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+}
+
+.board-banner-title {
+  position: relative;
+  z-index: 1;
+  margin-top: 16px;
+  font-size: 28px;
+  line-height: 1.3;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+}
+
+.board-banner-desc {
+  position: relative;
+  z-index: 1;
+  margin-top: 12px;
+  max-width: 72ch;
+  font-size: 14px;
+  line-height: 1.8;
+  color: rgba(255,255,255,0.88);
+}
+
+.board-banner-actions {
+  position: relative;
+  z-index: 1;
+  margin-top: 18px;
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.board-banner-light-btn {
+  background: #fff !important;
+  border-color: #fff !important;
+  color: var(--color-accent) !important;
+}
+
+.board-shell {
+  background: var(--color-white);
+  border: 1px solid var(--color-gray-200);
+  border-radius: 20px;
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+}
+
+.board-tabs {
+  display: flex;
+  gap: 0;
+  overflow-x: auto;
+  border-bottom: 1px solid var(--color-gray-200);
+  scrollbar-width: none;
+}
+
+.board-tabs::-webkit-scrollbar {
+  display: none;
+}
+
+.board-tab {
+  flex: 0 0 auto;
+  min-height: 52px;
+  padding: 0 18px;
+  background: transparent;
+  border: 0;
+  border-bottom: 2px solid transparent;
+  color: var(--color-gray-500);
+  font-size: 14px;
+  font-weight: 600;
+  transition: var(--transition-fast);
+}
+
+.board-tab:hover {
+  color: var(--color-gray-800);
+  background: rgba(37, 99, 235, 0.03);
+}
+
+.board-tab.is-active {
+  color: var(--color-accent);
+  border-bottom-color: var(--color-accent);
+  background: rgba(37, 99, 235, 0.03);
+}
+
+.board-heading {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 22px 24px 18px;
+  border-bottom: 1px solid var(--color-gray-200);
+}
+
+.board-heading-main {
+  min-width: 0;
+  flex: 1;
+}
+
+.board-section-title {
+  font-size: 22px;
+  line-height: 1.25;
+  font-weight: 800;
+  color: var(--color-gray-900);
+  letter-spacing: -0.03em;
+}
+
+.board-section-desc {
+  margin-top: 8px;
+  font-size: 14px;
+  color: var(--color-gray-500);
+  line-height: 1.7;
+}
+
+.board-heading-actions {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.board-content {
+  padding: 20px 24px 24px;
+  display: grid;
+  gap: 16px;
+}
+
+.board-content-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  flex-wrap: wrap;
+  min-height: 36px;
+}
+
+.board-block-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--color-gray-700);
+}
+
+.board-search-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.board-search-select {
+  width: 138px;
+  flex-shrink: 0;
+}
+
+.board-search-input {
+  width: 240px;
+  max-width: 100%;
+  flex: 1;
+  min-width: 180px;
+}
+
+.board-search-row .select,
+.board-search-row .input {
+  height: 36px;
+  min-height: 36px;
+  padding: 0 12px;
+  border-radius: 10px;
+  font-size: 13px;
+  line-height: 36px;
+}
+
+.board-table-wrap {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.board-table {
+  width: 100%;
+  min-width: 720px;
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+
+.board-table th,
+.board-table td {
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--color-gray-200);
+  font-size: 14px;
+  vertical-align: middle;
+}
+
+.board-table thead th {
+  background: var(--color-gray-50);
+  color: var(--color-gray-500);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.board-table tbody tr:hover td {
+  background: rgba(37, 99, 235, 0.03);
+}
+
+.board-table .col-no,
+.board-table .col-status,
+.board-table .col-author,
+.board-table .col-date,
+.board-table .col-views,
+.board-table .col-category,
+.board-table .col-action,
+.board-table .col-type,
+.board-table .col-owner {
+  text-align: center;
+  white-space: nowrap;
+}
+
+.board-table .col-views,
+.board-table .col-reward {
+  text-align: right;
+}
+
+.board-title-cell {
+  word-break: keep-all;
+  line-height: 1.6;
+}
+
+.board-title-text,
+.board-title-link {
+  display: inline-block;
+  color: var(--color-gray-900);
+  font-weight: 700;
+}
+
+.board-title-link {
+  text-align: left;
+  background: transparent;
+  border: 0;
+  padding: 0;
+  font: inherit;
+}
+
+.board-title-link:hover {
+  color: var(--color-accent);
+}
+
+.board-subtext {
+  margin-top: 4px;
+  font-size: 12px;
+  color: var(--color-gray-500);
+  line-height: 1.6;
+}
+
+.board-highlight td {
+  background: rgba(37, 99, 235, 0.05);
+}
+
+.board-pagination {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  padding-top: 6px;
+}
+
+.board-page-btn {
+  min-width: 36px;
+  height: 36px;
+  padding: 0 10px;
+  border-radius: 10px;
+  border: 1px solid var(--color-gray-200);
+  background: var(--color-white);
+  color: var(--color-gray-600);
+  font-size: 13px;
+  font-weight: 700;
+  transition: var(--transition-fast);
+}
+
+.board-page-btn:hover {
+  background: var(--color-gray-50);
+  color: var(--color-gray-900);
+  border-color: var(--color-gray-300);
+}
+
+.board-page-btn.is-active {
+  background: var(--color-accent);
+  border-color: var(--color-accent);
+  color: var(--color-white);
+}
+
+.board-empty {
+  padding: 48px 24px;
+  border: 1px dashed var(--color-gray-200);
+  border-radius: 16px;
+  text-align: center;
+  background: var(--color-gray-50);
+}
+
+.board-empty-title {
+  font-size: 16px;
+  font-weight: 800;
+  color: var(--color-gray-800);
+}
+
+.board-empty-desc {
+  margin-top: 8px;
+  font-size: 13px;
+  color: var(--color-gray-500);
+  line-height: 1.7;
+}
+
+.board-modal-note {
+  padding: 14px 16px;
+  border-radius: 14px;
+  background: var(--color-gray-50);
+  border: 1px solid var(--color-gray-200);
+  font-size: 13px;
+  color: var(--color-gray-600);
+  line-height: 1.7;
+}
+
+.board-attendance-form {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  margin-bottom: 18px;
+}
+
+.board-attendance-form .input {
+  flex: 1;
+  min-width: 0;
+}
+
+.board-detail-thread {
+  display: grid;
+  gap: 12px;
+}
+
+.board-comment-item {
+  padding: 14px 16px;
+  border: 1px solid var(--color-gray-200);
+  border-radius: 14px;
+  background: var(--color-white);
+}
+
+.board-comment-item.is-child {
+  margin-left: 24px;
+  background: var(--color-gray-50);
+}
+
+.board-comment-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 6px;
+  flex-wrap: wrap;
+}
+
+.board-comment-author {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--color-gray-800);
+}
+
+.board-comment-date {
+  font-size: 12px;
+  color: var(--color-gray-400);
+}
+
+.board-comment-body {
+  font-size: 14px;
+  color: var(--color-gray-700);
+  line-height: 1.7;
+}
+
+.board-comment-actions {
+  margin-top: 10px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.board-comment-reply {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--color-accent);
+}
+
+.modal {
+  display: none;
+}
+
+.modal.is-open {
+  display: flex;
+}
+
+@media (max-width: 900px) {
+  .board-heading,
+  .board-content-toolbar,
+  .board-search-row,
+  .board-attendance-form {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .board-heading-actions,
+  .board-search-select,
+  .board-search-input {
+    width: 100%;
+  }
+
+  .board-comment-item.is-child {
+    margin-left: 12px;
+  }
+}

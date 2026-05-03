@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>커뮤니티 글 상세 - Sherpain21</title>
+  <link rel="stylesheet" href="../../src/css/app.css" />
+  <link rel="stylesheet" href="../../src/css/topbar.css" />
+  <link rel="stylesheet" href="../../src/css/board-editor.css" />
+  <script defer src="../../src/js/config.js"></script>
+  <script defer src="../../src/js/api.js"></script>
+  <script defer src="../../src/js/sidebar.js"></script>
+  <script defer src="../../src/js/topbar.js"></script>
+  <script defer src="../../src/js/community-view.js"></script>
+</head>
+<body data-page="community-view">
+  <div class="app-layout">
+    <div id="sidebar-container"></div>
+    <div class="app-main-wrapper">
+      <div id="topbar-container"></div>
+      <main class="app-content">
+        <div class="board-doc-page">
+          <section class="board-doc-shell">
+            <div class="board-doc-header">
+              <div class="board-doc-header-main">
+                <div class="board-doc-kicker" id="community-view-kicker">커뮤니티 상세</div>
+                <h1 class="board-doc-title" id="community-view-title">게시글을 불러오는 중입니다</h1>
+                <p class="board-doc-desc" id="community-view-desc">작성자와 댓글 정보를 준비하고 있습니다.</p>
+              </div>
+              <div class="board-doc-actions">
+                <a class="btn btn-secondary" id="community-view-back" href="/app/community/board.html?tab=free">목록으로</a>
+                <a class="btn btn-primary" id="community-view-write" href="/app/community/write.html?category=free">새 글쓰기</a>
+              </div>
+            </div>
+
+            <div class="board-doc-body">
+              <div class="board-meta" id="community-view-meta"></div>
+              <section class="board-article">
+                <div class="board-article-content" id="community-view-content"></div>
+              </section>
+
+              <section class="board-comment-section">
+                <div class="board-comment-count" id="community-comment-count">댓글 0개</div>
+                <form class="board-comment-form" id="community-comment-form">
+                  <input type="hidden" id="community-comment-parent-id" />
+                  <div class="board-reply-banner" id="community-reply-banner">
+                    <span id="community-reply-label">답글 작성 중</span>
+                    <button class="btn btn-ghost btn-sm" id="community-reply-cancel" type="button">답글 취소</button>
+                  </div>
+                  <div>
+                    <label class="label" for="community-comment-input">댓글 작성</label>
+                    <textarea class="textarea" id="community-comment-input" placeholder="댓글을 입력하세요"></textarea>
+                  </div>
+                  <div class="modal-footer" style="padding:0; justify-content:flex-end;">
+                    <button class="btn btn-primary" type="submit">댓글 등록</button>
+                  </div>
+                </form>
+                <div id="community-comment-list"></div>
+              </section>
+            </div>
+          </section>
+        </div>
+      </main>
+    </div>
+  </div>
+</body>
+</html>

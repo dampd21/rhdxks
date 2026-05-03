@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>커뮤니티 - Sherpain21</title>
+  <link rel="stylesheet" href="../../src/css/app.css" />
+  <link rel="stylesheet" href="../../src/css/topbar.css" />
+  <link rel="stylesheet" href="../../src/css/board.css" />
+  <script defer src="../../src/js/config.js"></script>
+  <script defer src="../../src/js/api.js"></script>
+  <script defer src="../../src/js/sidebar.js"></script>
+  <script defer src="../../src/js/topbar.js"></script>
+  <script defer src="../../src/js/community.js"></script>
+</head>
+<body data-page="community-board">
+  <div class="app-layout">
+    <div id="sidebar-container"></div>
+    <div class="app-main-wrapper">
+      <div id="topbar-container"></div>
+      <main class="app-content">
+        <div class="board-page">
+          <section class="board-banner">
+            <span class="board-banner-label">배너 예시</span>
+            <h1 class="board-banner-title">5월 스폰서 예시 | 강남 피부과 블로그 체험단 패키지</h1>
+            <p class="board-banner-desc">예시 배너입니다. 실제 운영 시에는 공식 제휴 파트너의 월간 스폰서 배너, 체험단 모집 패키지, 배포형 상품 안내가 이 위치에 노출됩니다.</p>
+            <div class="board-banner-actions">
+              <button class="btn btn-secondary board-banner-light-btn" type="button">광고 문의 예시</button>
+            </div>
+          </section>
+
+          <section class="board-shell">
+            <div class="board-tabs" aria-label="커뮤니티 탭">
+              <button class="board-tab" type="button" data-board-tab="notice">공지사항</button>
+              <button class="board-tab" type="button" data-board-tab="greeting">가입인사</button>
+              <button class="board-tab" type="button" data-board-tab="attendance">출석체크</button>
+              <button class="board-tab" type="button" data-board-tab="free">자유게시판</button>
+              <button class="board-tab" type="button" data-board-tab="share">정보공유</button>
+              <button class="board-tab" type="button" data-board-tab="logic">로직분석 연구실</button>
+            </div>
+
+            <div class="board-heading">
+              <div class="board-heading-main">
+                <div class="board-section-title" id="community-current-title">공지사항</div>
+                <div class="board-section-desc" id="community-current-desc">셰르파인의 새로운 업데이트와 운영 소식을 확인하세요.</div>
+              </div>
+              <div class="board-heading-actions">
+                <button class="btn btn-primary" id="community-write-btn" type="button">글쓰기</button>
+              </div>
+            </div>
+
+            <div class="board-content" id="community-board-panel">
+              <div class="board-content-toolbar">
+                <div class="board-block-title">게시글</div>
+                <div class="board-search-row" id="community-search-box">
+                  <select class="select board-search-select" id="community-search-scope">
+                    <option value="all">통합 검색</option>
+                    <option value="title">제목</option>
+                    <option value="content">내용</option>
+                    <option value="title_content">제목+내용</option>
+                    <option value="author">작성자</option>
+                  </select>
+                  <input class="input board-search-input" id="community-search-input" placeholder="검색어를 입력하세요" />
+                </div>
+              </div>
+              <div id="community-board-wrap"></div>
+            </div>
+
+            <div class="board-content" id="community-attendance-panel" style="display:none;">
+              <form class="board-attendance-form" id="attendance-form">
+                <input class="input" id="attendance-message-input" placeholder="오늘의 한 줄 인사말을 입력해 주세요" />
+                <button class="btn btn-primary" type="submit">출석하기</button>
+              </form>
+              <div class="board-block-title">출석 기록</div>
+              <div id="community-attendance-wrap"></div>
+            </div>
+          </section>
+        </div>
+      </main>
+    </div>
+  </div>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9f57000a8f86ea1c',t:'MTc3NzcyNDYzNw=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>

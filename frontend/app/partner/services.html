@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>제휴사 및 자유홍보 - Sherpain21</title>
+  <link rel="stylesheet" href="../../src/css/app.css" />
+  <link rel="stylesheet" href="../../src/css/topbar.css" />
+  <link rel="stylesheet" href="../../src/css/marketplace.css" />
+  <script defer src="../../src/js/config.js"></script>
+  <script defer src="../../src/js/sidebar.js"></script>
+  <script defer src="../../src/js/topbar.js"></script>
+  <script defer src="../../src/js/services.js"></script>
+</head>
+<body data-page="partner-services">
+  <div class="app-layout">
+    <div id="sidebar-container"></div>
+    <div class="app-main-wrapper">
+      <div id="topbar-container"></div>
+      <main class="app-content">
+        <div class="services-page">
+          <section class="services-shell">
+            <div class="services-tabs" aria-label="제휴사 및 자유홍보 탭">
+              <button class="services-tab" type="button" data-services-tab="premium">공식 제휴 파트너사</button>
+              <button class="services-tab" type="button" data-services-tab="promo">자유홍보 게시판</button>
+            </div>
+
+            <div class="services-heading">
+              <div class="services-heading-main">
+                <div class="services-section-title" id="services-current-title">공식 제휴 파트너사</div>
+                <div class="services-section-desc" id="services-current-desc">플랫폼과 공식 계약을 맺은 전문 대행사 및 솔루션 목록입니다.</div>
+              </div>
+              <div class="services-heading-actions">
+                <button class="btn btn-primary" id="services-primary-btn" type="button">문의/신청하기</button>
+              </div>
+            </div>
+
+            <div class="services-content">
+              <div class="services-content-toolbar">
+                <div class="services-block-title" id="services-list-title">제휴사 목록</div>
+                <div class="services-search-row" id="services-search-box">
+                  <select class="select services-search-select" id="services-search-scope">
+                    <option value="all">통합 검색</option>
+                    <option value="title">제목</option>
+                    <option value="content">내용</option>
+                    <option value="title_content">제목+내용</option>
+                    <option value="author">작성자</option>
+                  </select>
+                  <input class="input services-search-input" id="services-search-input" placeholder="검색어를 입력하세요" />
+                </div>
+              </div>
+              <div id="services-table-wrap"></div>
+            </div>
+          </section>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <div class="modal" id="services-write-modal" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <div>
+          <h2 class="modal-title">자유홍보 글쓰기</h2>
+          <p class="modal-subtitle">자유홍보는 일 1회 무료 작성 후 500 눈덩이 차감 방식으로 운영되는 예시 구조입니다.</p>
+        </div>
+        <button class="modal-close" type="button" data-modal-close="services-write-modal" aria-label="모달 닫기">×</button>
+      </div>
+      <form id="services-write-form">
+        <div class="modal-body">
+          <div class="services-modal-note">자유홍보 게시판은 블로그/디자인/당근마켓/리뷰관리 등 다양한 서비스 예시를 올릴 수 있도록 구성했습니다.</div>
+          <div>
+            <label class="label" for="services-write-category">홍보 카테고리</label>
+            <select class="select" id="services-write-category">
+              <option>블로그</option>
+              <option>플레이스/리뷰</option>
+              <option>인스타/스레드/유튜브</option>
+              <option>당근마켓</option>
+              <option>원고/디자인/촬영</option>
+              <option>기타 서비스</option>
+            </select>
+          </div>
+          <div>
+            <label class="label" for="services-write-title">홍보 제목</label>
+            <input class="input" id="services-write-title" placeholder="예: 병원 블로그 체험단 세팅 도와드립니다" />
+          </div>
+          <div>
+            <label class="label" for="services-write-body">홍보 내용 및 연락처</label>
+            <textarea class="textarea" id="services-write-body" placeholder="서비스 소개, 진행 범위, 연락 채널, 가능한 업종을 함께 작성해 주세요"></textarea>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-ghost" type="button" data-modal-close="services-write-modal">취소</button>
+          <button class="btn btn-primary" id="services-write-submit" type="submit">무료로 등록하기</button>
+        </div>
+      </form>
+    </div>
+  </div>
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js/v8c78df7c7c0f484497ecbca7046644da1771523124516" integrity="sha512-8DS7rgIrAmghBFwoOTujcf6D9rXvH8xm8JQ1Ja01h9QX8EzXldiszufYa4IFfKdLUKTTrnSFXLDkUEOTrZQ8Qg==" data-cf-beacon='{"version":"2024.11.0","token":"1954b47c125f43f8b4338b3c4f804e4f","server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
+</body>
+</html>

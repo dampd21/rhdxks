@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>커뮤니티 글쓰기 - Sherpain21</title>
+  <link rel="stylesheet" href="../../src/css/app.css" />
+  <link rel="stylesheet" href="../../src/css/topbar.css" />
+  <link rel="stylesheet" href="../../src/css/board-editor.css" />
+  <script defer src="../../src/js/config.js"></script>
+  <script defer src="../../src/js/api.js"></script>
+  <script defer src="../../src/js/sidebar.js"></script>
+  <script defer src="../../src/js/topbar.js"></script>
+  <script defer src="../../src/js/community-write.js"></script>
+</head>
+<body data-page="community-write">
+  <div class="app-layout">
+    <div id="sidebar-container"></div>
+    <div class="app-main-wrapper">
+      <div id="topbar-container"></div>
+      <main class="app-content">
+        <div class="board-doc-page">
+          <section class="board-doc-shell">
+            <div class="board-doc-header">
+              <div class="board-doc-header-main">
+                <div class="board-doc-kicker">커뮤니티 글쓰기</div>
+                <h1 class="board-doc-title" id="community-write-title-display">게시글 작성</h1>
+                <p class="board-doc-desc" id="community-write-desc-display">네이버카페처럼 본문에서 바로 작성되는 페이지형 에디터입니다.</p>
+              </div>
+              <div class="board-doc-actions">
+                <a class="btn btn-secondary" id="community-write-back" href="/app/community/board.html?tab=free">목록으로</a>
+              </div>
+            </div>
+
+            <div class="board-doc-body">
+              <section class="board-editor-main">
+                <form id="community-page-write-form" class="form-row">
+                  <div class="board-editor-field">
+                    <label class="board-editor-label" for="community-page-write-category">게시판 선택</label>
+                    <select class="select board-compact-control" id="community-page-write-category">
+                      <option value="greeting">가입인사</option>
+                      <option value="free">자유게시판</option>
+                      <option value="share">정보공유</option>
+                      <option value="logic">로직분석 연구실</option>
+                    </select>
+                  </div>
+
+                  <div class="board-editor-field">
+                    <label class="board-editor-label" for="community-page-write-title">제목</label>
+                    <input class="input board-compact-control" id="community-page-write-title" placeholder="게시글 제목을 입력하세요" />
+                  </div>
+
+                  <div class="board-editor-field">
+                    <label class="board-editor-label" for="community-editor-surface">본문</label>
+                    <div class="input board-editor-surface" id="community-editor-surface" contenteditable="true"></div>
+                  </div>
+
+                  <div class="board-upload-box" id="community-upload-box">
+                    <div class="board-upload-title">스크린샷 붙여넣기 / 이미지 첨부</div>
+                    <div class="board-upload-desc">본문 에디터에 이미지를 붙여넣거나 파일을 선택하면 업로드가 끝난 뒤 본문에 바로 이미지가 삽입됩니다.</div>
+                    <input class="board-upload-input" id="community-upload-input" type="file" accept="image/*" multiple />
+                    <div class="board-upload-actions">
+                      <button class="btn btn-secondary btn-sm" id="community-upload-trigger" type="button">이미지 선택</button>
+                      <button class="btn btn-ghost btn-sm" id="community-upload-clear" type="button">첨부 비우기</button>
+                    </div>
+                    <div class="board-upload-previews" id="community-upload-previews"></div>
+                  </div>
+
+                  <div class="modal-footer" style="padding:0; justify-content:flex-end; margin-top:4px;">
+                    <button class="btn btn-ghost" type="button" id="community-write-reset">초기화</button>
+                    <button class="btn btn-primary" type="submit">등록하기</button>
+                  </div>
+                </form>
+              </section>
+            </div>
+          </section>
+        </div>
+      </main>
+    </div>
+  </div>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9f5909ef7b7783f1',t:'MTc3Nzc0NjAxNA=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
