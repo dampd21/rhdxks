@@ -1,0 +1,460 @@
+/* ================================================================
+   Sherpain21 — place-seo.css
+   플레이스 SEO 분석 + 순위 조회 공통 스타일
+   두 페이지 UI 통일 목적
+   ================================================================ */
+
+/* ── 페이지 헤더 ────────────────────────────────────────────── */
+.page-header-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  margin-bottom: var(--space-5);
+  flex-wrap: wrap;
+}
+.page-header-title {
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--color-gray-900);
+  line-height: 1.3;
+}
+.page-header-sub {
+  font-size: 12px;
+  color: var(--color-gray-400);
+  margin-top: 2px;
+}
+.page-meta-date {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--color-gray-400);
+}
+
+/* ── 플랜 제한 안내 ─────────────────────────────────────────── */
+.rate-limit-notice {
+  display: none;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-4);
+  background: #fef3c7;
+  border: 1px solid #fcd34d;
+  border-radius: var(--radius-sm);
+  font-size: 12px;
+  color: #92400e;
+  margin-bottom: var(--space-4);
+}
+
+/* ── 안내 박스 ──────────────────────────────────────────────── */
+.page-note {
+  padding: 10px 14px;
+  background: var(--color-accent-light);
+  border: 1px solid rgba(37,99,235,0.15);
+  border-radius: var(--radius-sm);
+  font-size: 12px;
+  color: var(--color-gray-600);
+  margin-bottom: var(--space-4);
+}
+.page-note strong { color: var(--color-gray-900); }
+
+/* ── 탭 ─────────────────────────────────────────────────────── */
+.page-tabs {
+  display: flex;
+  gap: 0;
+  margin-bottom: var(--space-5);
+  border-bottom: 1px solid var(--color-gray-200);
+}
+.page-tab {
+  padding: 10px 20px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-gray-500);
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  cursor: pointer;
+  transition: var(--transition-fast);
+  font-family: var(--font-korean);
+}
+.page-tab:hover { color: var(--color-gray-700); }
+.page-tab.is-active {
+  color: var(--color-accent);
+  border-bottom-color: var(--color-accent);
+}
+
+/* ── 검색 폼 ────────────────────────────────────────────────── */
+.search-row {
+  display: flex;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+  align-items: flex-end;
+}
+.search-field {
+  flex: 1;
+  min-width: 180px;
+}
+.search-field-sm {
+  flex: 0 0 140px;
+  min-width: 140px;
+}
+.search-field-btn { flex: 0 0 auto; }
+.search-label {
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--color-gray-600);
+  margin-bottom: 4px;
+}
+.search-input,
+.search-select {
+  width: 100%;
+  padding: 9px 12px;
+  font-size: 13px;
+  border: 1px solid var(--color-gray-200);
+  border-radius: var(--radius-sm);
+  outline: none;
+  transition: var(--transition-fast);
+  background: var(--color-white);
+  color: var(--color-gray-900);
+  font-family: var(--font-korean);
+}
+.search-input:focus,
+.search-select:focus {
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 3px var(--color-accent-ring);
+}
+.search-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 9px 18px;
+  font-size: 13px;
+  font-weight: 600;
+  color: white;
+  background: var(--color-accent);
+  border: none;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: var(--transition-fast);
+  white-space: nowrap;
+  font-family: var(--font-korean);
+  height: 38px;
+}
+.search-btn:hover    { background: var(--color-accent-hover); }
+.search-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+/* 상세 옵션 토글 — place-rank.js가 #advanced-area에 .is-open 클래스 추가 */
+#advanced-area { display: none; }
+#advanced-area.is-open { display: block; }
+
+/* ── 프로그레스 (SEO 분석용) ─────────────────────────────────── */
+.seo-loading-wrap { padding: var(--space-5); }
+.seo-loading-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 6px;
+}
+.seo-loading-text { font-size: 13px; font-weight: 600; color: var(--color-gray-700); }
+.seo-loading-pct  { font-size: 12px; color: var(--color-gray-400); font-family: var(--font-mono); }
+.progress-bar-wrap {
+  width: 100%;
+  height: 5px;
+  background: var(--color-gray-100);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+}
+.progress-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--color-accent), #818cf8);
+  border-radius: var(--radius-full);
+  transition: width 0.3s ease;
+}
+.seo-loading-detail { margin-top: 6px; font-size: 11px; color: var(--color-gray-400); }
+
+/* ── 통계 카드 ──────────────────────────────────────────────── */
+.stat-grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-3);
+}
+.stat-grid-4 {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-3);
+}
+.stat-card-sm {
+  padding: var(--space-4);
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  background: var(--color-white);
+  border: 1px solid var(--color-gray-200);
+  border-radius: var(--radius-md);
+}
+.stat-icon-sm {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  flex-shrink: 0;
+  font-weight: 800;
+  line-height: 1;
+}
+.stat-icon-sm.si-blue  { background: rgba(37,99,235,0.08);  color: var(--color-accent); }
+.stat-icon-sm.si-gray  { background: var(--color-gray-100); color: var(--color-gray-600); }
+.stat-icon-sm.si-green { background: rgba(16,185,129,0.08); color: var(--color-success); }
+.stat-icon-sm.si-cyan  { background: rgba(6,182,212,0.10);  color: #0E7490; }
+.stat-icon-sm.si-pink  { background: rgba(236,72,153,0.10); color: #9D174D; }
+.stat-body-sm  { flex: 1; min-width: 0; }
+.stat-label-sm { font-size: 11px; color: var(--color-gray-400); }
+.stat-value-sm {
+  font-family: var(--font-mono);
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--color-gray-900);
+}
+.stat-sub-sm { font-size: 11px; color: var(--color-gray-400); margin-top: 1px; }
+
+/* ── 업체 정보 (순위조회 target-info) ───────────────────────── */
+.target-info {
+  display: flex;
+  gap: var(--space-3);
+  align-items: center;
+  padding: var(--space-2) 0;
+}
+.target-thumb {
+  width: 48px; height: 48px;
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  background: var(--color-gray-100);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  color: var(--color-gray-400);
+  font-size: 18px; font-weight: 700;
+}
+.target-thumb img { width: 100%; height: 100%; object-fit: cover; }
+.target-detail { flex: 1; min-width: 0; }
+.target-name { font-size: 14px; font-weight: 700; color: var(--color-gray-900); }
+.target-cat  { font-size: 11px; color: var(--color-gray-400); margin-top: 2px; }
+.target-stats { display: flex; flex-wrap: wrap; gap: var(--space-3); margin-top: 4px; }
+.target-stat  { font-size: 11px; color: var(--color-gray-500); }
+.target-stat b { color: var(--color-gray-700); }
+
+/* ── SEO 배지 ───────────────────────────────────────────────── */
+.seo-badge {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: var(--radius-full);
+  font-size: 11px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+.seo-excellent { background: #D1FAE5; color: #065F46; }
+.seo-strong    { background: #DBEAFE; color: #1E40AF; }
+.seo-above     { background: #FEF3C7; color: #92400E; }
+.seo-weak      { background: #FEE2E2; color: #991B1B; }
+.seo-poor      { background: var(--color-gray-100); color: var(--color-gray-500); }
+
+/* ── 내 매장 진단 카드 (SEO 전용) ───────────────────────────── */
+.seo-my-header {
+  display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 12px;
+}
+.seo-my-name      { font-size: 16px; font-weight: 700; color: var(--color-gray-900); }
+.seo-my-rank-text { font-size: 12px; color: var(--color-gray-500); }
+.seo-score-row {
+  display: flex; justify-content: space-between;
+  font-size: 12px; margin-bottom: 4px; color: var(--color-gray-600);
+}
+.seo-score-val { font-weight: 700; color: var(--color-gray-900); }
+.seo-bar-wrap {
+  width: 100%; height: 6px;
+  background: var(--color-gray-100);
+  border-radius: var(--radius-full);
+  overflow: hidden; margin-bottom: 12px;
+}
+.seo-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--color-accent), #818cf8);
+  border-radius: var(--radius-full);
+  transition: width 0.6s ease;
+}
+.seo-breakdown { display: flex; gap: var(--space-3); flex-wrap: wrap; }
+.seo-breakdown-item {
+  flex: 1; min-width: 70px;
+  padding: var(--space-3);
+  background: var(--color-gray-50);
+  border-radius: var(--radius-sm);
+  text-align: center;
+  border: 1px solid var(--color-gray-100);
+}
+.seo-breakdown-label { font-size: 11px; color: var(--color-gray-400); margin-bottom: 2px; }
+.seo-breakdown-val   { font-size: 18px; font-weight: 800; color: var(--color-gray-900); font-family: var(--font-mono); }
+
+/* ── 결과 테이블 (순위조회 + SEO 공통) ──────────────────────── */
+.table-wrap { width: 100%; overflow-x: auto; }
+.rank-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+.rank-table thead { position: sticky; top: 0; z-index: 1; }
+.rank-table th {
+  background: var(--color-gray-50);
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--color-gray-500);
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  padding: 8px 10px;
+  text-align: center;
+  border-bottom: 1px solid var(--color-gray-200);
+  white-space: nowrap;
+}
+.rank-table td {
+  padding: 8px 10px;
+  text-align: center;
+  border-bottom: 1px solid var(--color-gray-100);
+  font-size: 12px;
+  color: var(--color-gray-700);
+}
+.rank-table tr:hover td { background: var(--color-gray-50); }
+.rank-table td:nth-child(2),
+.rank-table th:nth-child(2) { text-align: left; }
+.rank-highlight td { background: rgba(37,99,235,0.04) !important; }
+
+/* 순위 뱃지 (rank.html 동일) */
+.rank-num {
+  display: inline-flex;
+  align-items: center; justify-content: center;
+  width: 28px; height: 28px;
+  border-radius: var(--radius-sm);
+  font-family: var(--font-mono);
+  font-size: 12px; font-weight: 800;
+}
+.rank-num.r1 { background: var(--color-accent); color: white; }
+.rank-num.r2 { background: rgba(37,99,235,0.1); color: var(--color-accent); }
+.rank-num.r3 { background: var(--color-gray-100); color: var(--color-gray-700); }
+.rank-num.r4 { background: none; color: var(--color-gray-400); font-weight: 600; }
+.rank-target-label { font-size: 9px; font-weight: 700; color: var(--color-accent); margin-left: 4px; }
+.rank-store-label  { font-size: 9px; font-weight: 600; color: var(--color-warning); margin-left: 4px; }
+
+/* 스냅샷 blur */
+.rank-table.snapshot-blur td:not(:first-child):not(:nth-child(2)):not(:nth-child(3)) {
+  filter: blur(4px);
+  user-select: none;
+}
+
+/* SEO 정렬 헤더 */
+.seo-sortable { cursor: pointer; user-select: none; }
+.seo-sortable:hover { color: var(--color-accent); }
+.seo-sort-asc::after  { content: ' ↑'; color: var(--color-accent); }
+.seo-sort-desc::after { content: ' ↓'; color: var(--color-accent); }
+.rv-sortable { cursor: pointer; user-select: none; }
+.rv-sortable:hover { color: var(--color-accent); }
+
+/* ── 추적 관리 ──────────────────────────────────────────────── */
+.track-item {
+  padding: var(--space-4);
+  border: 1px solid var(--color-gray-200);
+  border-radius: var(--radius-md);
+  margin-bottom: var(--space-3);
+  background: var(--color-white);
+}
+.track-item:last-child { margin-bottom: 0; }
+.track-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+}
+.track-keyword { font-size: 14px; font-weight: 700; color: var(--color-gray-900); }
+.track-meta    { font-size: 11px; color: var(--color-gray-400); margin-top: 2px; }
+.track-actions { display: flex; gap: var(--space-2); flex-wrap: wrap; }
+.track-btn {
+  padding: 6px 12px;
+  font-size: 11px; font-weight: 600;
+  border: 1px solid var(--color-gray-200);
+  border-radius: var(--radius-sm);
+  background: var(--color-white);
+  color: var(--color-gray-600);
+  cursor: pointer;
+  transition: var(--transition-fast);
+  display: inline-flex; align-items: center; gap: 4px;
+  font-family: var(--font-korean);
+}
+.track-btn:hover       { border-color: var(--color-gray-300); background: var(--color-gray-50); }
+.track-btn-danger      { color: var(--color-danger); }
+.track-btn-danger:hover { background: #fef2f2; border-color: #fecaca; }
+
+/* ── 미니 타임라인 ──────────────────────────────────────────── */
+.mini-wrap  { margin-top: var(--space-3); overflow-x: auto; }
+.mini-mount { /* place-rank.js가 동적으로 생성하는 마운트 포인트 */ }
+.mini-grid  { display: flex; gap: 6px; padding-bottom: 4px; }
+.mini-cell {
+  min-width: 72px; padding: 8px;
+  border: 1px solid var(--color-gray-200);
+  border-radius: var(--radius-sm);
+  cursor: pointer; text-align: center;
+  transition: var(--transition-fast);
+  flex-shrink: 0; background: var(--color-white);
+}
+.mini-cell:hover  { border-color: var(--color-gray-300); }
+.mini-cell.active { border-color: var(--color-accent); background: var(--color-accent-light); }
+.mini-date    { font-size: 10px; color: var(--color-gray-400); margin-bottom: 4px; }
+.mini-rank    { font-size: 18px; font-weight: 800; color: var(--color-gray-900); font-family: var(--font-mono); line-height: 1.2; }
+.mini-out     { font-size: 11px !important; color: var(--color-gray-400) !important; font-weight: 600; }
+.mini-delta   { font-size: 10px; min-height: 14px; }
+.mini-metrics { font-size: 10px; color: var(--color-gray-400); margin-top: 2px; }
+
+/* ── 차트 ───────────────────────────────────────────────────── */
+.rank-chart-wrap   { position: relative; height: 200px; }
+.chart-grid-2 {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: var(--space-4);
+  margin-bottom: var(--space-4);
+}
+.review-chart-wrap { position: relative; height: 200px; }
+
+/* ── 기간 버튼 ──────────────────────────────────────────────── */
+.seo-period-btn {
+  padding: 5px 12px;
+  font-size: 12px; font-weight: 600;
+  color: var(--color-gray-600);
+  background: var(--color-gray-50);
+  border: 1px solid var(--color-gray-200);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: var(--transition-fast);
+  font-family: var(--font-korean);
+}
+.seo-period-btn:hover  { background: var(--color-gray-100); }
+.seo-period-btn.is-active {
+  background: var(--color-accent); color: white; border-color: var(--color-accent);
+}
+
+/* ── 빈 상태 / 업그레이드 ────────────────────────────────────── */
+.empty-box {
+  text-align: center;
+  padding: var(--space-12) var(--space-6);
+  color: var(--color-gray-400);
+}
+.empty-state-icon  { font-size: 40px; margin-bottom: var(--space-4); }
+.empty-state-title { font-size: 15px; font-weight: 600; color: var(--color-gray-600); margin-bottom: var(--space-2); }
+.empty-state-desc  { font-size: 13px; line-height: 1.6; }
+
+/* ── 반응형 ─────────────────────────────────────────────────── */
+@media (max-width: 900px) {
+  .search-row    { flex-direction: column; }
+  .seo-breakdown { flex-direction: column; }
+  .stat-grid-3, .stat-grid-4 { grid-template-columns: repeat(2, 1fr); }
+  .chart-grid-2  { grid-template-columns: 1fr; }
+}
+@media (max-width: 600px) {
+  .stat-grid-3, .stat-grid-4 { grid-template-columns: 1fr; }
+  .seo-my-header { flex-direction: column; align-items: flex-start; }
+}

@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>플레이스 SEO 분석 - Sherpain21</title>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/variable/pretendardvariable.css" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700;800&display=swap" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" />
+  <link rel="stylesheet" href="../../src/css/app.css" />
+  <link rel="stylesheet" href="../../src/css/topbar.css" />
+  <link rel="stylesheet" href="../../src/css/place-seo.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+</head>
+<body data-page="place-seo">
+
+  <!-- ✅ 올바른 레이아웃 구조 (board.html / rank.html과 동일) -->
+  <div class="app-layout">
+
+    <!-- 사이드바 -->
+    <div id="sidebar-container"></div>
+    <div id="sidebar-overlay" class="sidebar-overlay"></div>
+
+    <!-- 메인 래퍼 -->
+    <div class="app-main-wrapper">
+
+      <!-- 탑바 — app-main-wrapper 안에 위치해야 밀림 없음 -->
+      <div id="topbar-container"></div>
+
+      <!-- 콘텐츠 -->
+      <main class="app-content">
+
+        <!-- 페이지 헤더 -->
+        <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:var(--space-4);margin-bottom:var(--space-5);flex-wrap:wrap;">
+          <div>
+            <div style="font-size:18px;font-weight:800;color:var(--color-gray-900);">플레이스 SEO 분석</div>
+            <div style="font-size:12px;color:var(--color-gray-400);margin-top:2px;">키워드별 상위 플레이스 SEO 점수와 리뷰를 종합 분석합니다</div>
+          </div>
+          <div style="font-family:var(--font-mono);font-size:12px;color:var(--color-gray-400);" id="seo-header-date"></div>
+        </div>
+
+        <!-- 플랜 제한 안내 -->
+        <div id="seo-rate-limit" class="seo-rate-limit">
+          <i class="fa-solid fa-triangle-exclamation"></i>
+          <span id="seo-rate-limit-msg"></span>
+        </div>
+
+        <!-- 안내 -->
+        <div class="page-notice page-notice-info" style="margin-bottom:20px;">
+          <i class="fa-solid fa-info-circle" style="margin-top:2px;flex-shrink:0;font-size:14px;"></i>
+          <span>키워드를 입력하면 네이버 플레이스 상위 업체의 SEO 점수와 리뷰를 종합 분석합니다. Place ID를 입력하면 내 매장을 상세 진단하고 <strong>추적 등록</strong>할 수 있습니다. <strong>Basic 플랜은 1시간당 5회 분석 가능합니다.</strong></span>
+        </div>
+
+        <!-- 탭 -->
+        <div class="page-tabs">
+          <button class="page-tab is-active" data-seotab="analyze">SEO 분석</button>
+          <button class="page-tab" data-seotab="tracking">추적 관리</button>
+        </div>
+
+        <!-- ════════════════════════════════════════ -->
+        <!-- TAB 1: SEO 분석                          -->
+        <!-- ════════════════════════════════════════ -->
+        <div id="seo-tab-analyze">
+
+          <!-- 검색 카드 -->
+          <div class="card" style="margin-bottom:20px;">
+            <div class="card-header">
+              <h3 class="card-title" style="display:flex;align-items:center;gap:8px;">
+                <i class="fa-solid fa-magnifying-glass-chart" style="color:var(--color-accent);"></i>
+                SEO 분석
+              </h3>
+            </div>
+            <div class="card-body">
+              <div class="search-row-aligned">
+                <div style="flex:0 0 130px;min-width:130px;">
+                  <label class="search-label">업종</label>
+                  <select class="search-select" id="seo-kind">
+                    <option value="restaurant">음식점</option>
+                    <option value="hairshop">미용실</option>
+                    <option value="nailshop">네일샵</option>
+                    <option value="hospital">병원</option>
+                    <option value="accommodation">숙박</option>
+                  </select>
+                </div>
+                <div style="flex:1;min-width:180px;">
+                  <label class="search-label">검색 키워드 <span style="color:#ef4444;">*</span></label>
+                  <input type="text" class="search-input" id="seo-keyword" placeholder="예: 강남 치킨 맛집">
+                </div>
+                <div style="flex:1;min-width:180px;">
+                  <label class="search-label">내 매장 Place ID <span style="color:var(--color-gray-400);font-weight:400;">(선택 — 추적 등록 가능)</span></label>
+                  <input type="text" class="search-input" id="seo-place-id" placeholder="예: 1234567890">
+                </div>
+                <div style="flex:0 0 120px;min-width:120px;">
+                  <label class="search-label">분석 범위</label>
+                  <select class="search-select" id="seo-display">
+                    <option value="10">상위 10개</option>
+                    <option value="20">상위 20개</option>
+                    <option value="30" selected>상위 30개</option>
+                    <option value="40">상위 40개</option>
+                    <option value="50">상위 50개</option>
+                  </select>
+                </div>
+                <div style="flex:0 0 auto;padding-bottom:0;">
+                  <label class="search-label" style="visibility:hidden;">분석</label>
+                  <button class="seo-search-btn" id="seo-btn-analyze">
+                    <i class="fa-solid fa-chart-column"></i> 분석 시작
+                  </button>
+                </div>
+              </div>
+              <div class="page-notice page-notice-info" style="margin-top:12px;margin-bottom:0;padding:10px 14px;font-size:12px;">
+                <i class="fa-solid fa-arrows-rotate" style="font-size:12px;margin-top:2px;flex-shrink:0;"></i>
+                <span><strong>빠른 재계산:</strong> 분석 완료 후 키워드만 변경하고 분석 버튼을 누르면 서버 재요청 없이 SEO 점수를 즉시 재계산합니다.</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- 프로그레스 -->
+          <div id="seo-loading" class="card" style="display:none;margin-bottom:20px;">
+            <div class="seo-progress-wrap">
+              <div class="seo-progress-header">
+                <span class="seo-progress-text" id="seo-loading-text">분석 중...</span>
+                <span class="seo-progress-pct"  id="seo-loading-pct">0%</span>
+              </div>
+              <div class="seo-progress-bar-wrap">
+                <div class="seo-progress-bar-fill" id="seo-progress-fill" style="width:0%;"></div>
+              </div>
+              <div class="seo-progress-detail" id="seo-loading-detail"></div>
+            </div>
+          </div>
+
+          <!-- 에러 -->
+          <div id="seo-error" class="page-notice page-notice-error" style="display:none;margin-bottom:20px;">
+            <i class="fa-solid fa-circle-exclamation" style="margin-top:2px;flex-shrink:0;"></i>
+            <span id="seo-error-msg"></span>
+          </div>
+
+          <!-- ── 결과 ── -->
+          <div id="seo-result" style="display:none;">
+
+            <!-- 내 매장 요약 카드 (Place ID 입력 시) -->
+            <div id="seo-my-summary" class="card" style="display:none;margin-bottom:20px;border-left:3px solid var(--color-accent);">
+              <div class="card-header">
+                <h3 class="card-title" style="display:flex;align-items:center;gap:8px;">
+                  <i class="fa-solid fa-bullseye" style="color:var(--color-accent);"></i>
+                  내 매장 SEO 진단
+                </h3>
+                <!-- 추적 등록 버튼 -->
+                <button class="seo-search-btn" id="seo-btn-register-track" style="background:var(--color-success);">
+                  <i class="fa-solid fa-bookmark"></i> 추적 등록 + 즉시 수집
+                </button>
+              </div>
+              <div class="card-body">
+                <div class="seo-my-header">
+                  <span class="seo-my-name"      id="seo-my-name">-</span>
+                  <span class="seo-badge"        id="seo-my-grade">-</span>
+                  <span class="seo-my-rank-text" id="seo-my-rank-text">-</span>
+                </div>
+                <div class="seo-score-row">
+                  <span>SEO 점수</span>
+                  <span class="seo-score-val" id="seo-my-score-text">-</span>
+                </div>
+                <div class="seo-bar-wrap">
+                  <div class="seo-bar-fill" id="seo-my-bar" style="width:0%;"></div>
+                </div>
+                <div class="seo-breakdown">
+                  <div class="seo-breakdown-item">
+                    <div class="seo-breakdown-label">관련성</div>
+                    <div class="seo-breakdown-val" id="seo-my-rel">-</div>
+                  </div>
+                  <div class="seo-breakdown-item">
+                    <div class="seo-breakdown-label">신뢰도</div>
+                    <div class="seo-breakdown-val" id="seo-my-auth">-</div>
+                  </div>
+                  <div class="seo-breakdown-item">
+                    <div class="seo-breakdown-label">품질</div>
+                    <div class="seo-breakdown-val" id="seo-my-qual">-</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- SEO 점수 비교 테이블 -->
+            <div class="card" style="margin-bottom:20px;">
+              <div class="card-header">
+                <h3 class="card-title" style="display:flex;align-items:center;gap:8px;">
+                  <i class="fa-solid fa-ranking-star" style="color:var(--color-accent);"></i>
+                  SEO 점수 비교
+                </h3>
+                <span id="seo-r-keyword" style="font-size:12px;color:var(--color-gray-400);"></span>
+              </div>
+              <div class="card-body" style="padding:0;">
+                <div class="seo-table-scroll">
+                  <table class="seo-table" id="seo-table">
+                    <thead>
+                      <tr>
+                        <th class="seo-sortable" data-col="searchRank" style="width:50px;white-space:nowrap;">검색<br>순위</th>
+                        <th class="seo-sortable" data-col="seoRank"    style="width:50px;white-space:nowrap;">SEO<br>순위</th>
+                        <th style="text-align:left;">플레이스</th>
+                        <th class="seo-sortable" data-col="seoScore"     style="width:80px;white-space:nowrap;">SEO<br>점수</th>
+                        <th class="seo-sortable" data-col="seoGrade"     style="width:80px;">등급</th>
+                        <th class="seo-sortable" data-col="seoRelevance" style="width:70px;">관련성</th>
+                        <th class="seo-sortable" data-col="seoAuthority" style="width:70px;">신뢰도</th>
+                        <th class="seo-sortable" data-col="seoQuality"   style="width:70px;">품질</th>
+                        <th class="seo-sortable" data-col="positiveRate" style="width:70px;">긍정률</th>
+                        <th class="seo-sortable" data-col="visitorReview" style="width:70px;white-space:nowrap;">방문자<br>리뷰</th>
+                        <th class="seo-sortable" data-col="saveCount"    style="width:70px;">저장수</th>
+                        <th class="seo-sortable" data-col="blogCount"    style="width:70px;">블로그</th>
+                      </tr>
+                    </thead>
+                    <tbody id="seo-tbody"></tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+
+            <!-- 리뷰 종합 분석 -->
+            <div id="seo-review-section" style="display:none;">
+              <div class="card" style="margin-bottom:20px;">
+                <div class="card-header">
+                  <h3 class="card-title" style="display:flex;align-items:center;gap:8px;">
+                    <i class="fa-solid fa-chart-pie" style="color:var(--color-accent);"></i>
+                    리뷰 종합 분석
+                  </h3>
+                  <div style="display:flex;gap:6px;flex-wrap:wrap;">
+                    <button class="seo-period-btn" data-days="7">7일</button>
+                    <button class="seo-period-btn is-active" data-days="30">30일</button>
+                    <button class="seo-period-btn" data-days="90">90일</button>
+                  </div>
+                </div>
+                <div class="card-body">
+                  <div class="seo-stat-grid">
+                    <div class="seo-stat-card">
+                      <div class="seo-stat-icon si-blue"><i class="fa-solid fa-store"></i></div>
+                      <div class="seo-stat-body">
+                        <span class="seo-stat-label">분석/성공/실패</span>
+                        <span class="seo-stat-value" id="rv-stat-count">-</span>
+                      </div>
+                    </div>
+                    <div class="seo-stat-card">
+                      <div class="seo-stat-icon si-cyan"><i class="fa-solid fa-comments"></i></div>
+                      <div class="seo-stat-body">
+                        <span class="seo-stat-label">총 리뷰 (평균)</span>
+                        <span class="seo-stat-value" id="rv-stat-review">-</span>
+                      </div>
+                    </div>
+                    <div class="seo-stat-card">
+                      <div class="seo-stat-icon si-green"><i class="fa-solid fa-face-smile"></i></div>
+                      <div class="seo-stat-body">
+                        <span class="seo-stat-label">평균 긍정률</span>
+                        <span class="seo-stat-value" id="rv-stat-sent">-</span>
+                      </div>
+                    </div>
+                    <div class="seo-stat-card">
+                      <div class="seo-stat-icon si-pink"><i class="fa-solid fa-venus-mars"></i></div>
+                      <div class="seo-stat-body">
+                        <span class="seo-stat-label">성별 평균(남/여)</span>
+                        <span class="seo-stat-value" id="rv-stat-gender">-</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="seo-chart-grid">
+                    <div class="card">
+                      <div class="card-header"><h3 class="card-title">리뷰 수 Top10</h3></div>
+                      <div class="card-body"><div class="seo-chart-wrap"><canvas id="ch-rv-top"></canvas></div></div>
+                    </div>
+                    <div class="card">
+                      <div class="card-header"><h3 class="card-title">긍정률 분포</h3></div>
+                      <div class="card-body"><div class="seo-chart-wrap"><canvas id="ch-rv-sent"></canvas></div></div>
+                    </div>
+                  </div>
+                  <div class="seo-chart-grid">
+                    <div class="card">
+                      <div class="card-header"><h3 class="card-title">성별 평균</h3></div>
+                      <div class="card-body"><div class="seo-chart-wrap"><canvas id="ch-rv-gender"></canvas></div></div>
+                    </div>
+                    <div class="card">
+                      <div class="card-header"><h3 class="card-title">긍정 키워드 Top10</h3></div>
+                      <div class="card-body"><div class="seo-chart-wrap"><canvas id="ch-rv-kw"></canvas></div></div>
+                    </div>
+                  </div>
+                  <div class="card">
+                    <div class="card-header"><h3 class="card-title">업체별 리뷰 분석</h3></div>
+                    <div class="card-body" style="padding:0;overflow-x:auto;">
+                      <div style="max-height:500px;overflow-y:auto;">
+                        <table class="seo-table">
+                          <thead>
+                            <tr>
+                              <th class="rv-sortable" data-rvcol="rank">순위 &#8597;</th>
+                              <th style="text-align:left;">업체</th>
+                              <th class="rv-sortable" data-rvcol="reviews">리뷰수 &#8597;</th>
+                              <th>리뷰어</th>
+                              <th>성별(남/여)</th>
+                              <th class="rv-sortable" data-rvcol="positive">긍정률 &#8597;</th>
+                              <th>긍정 키워드 Top3</th>
+                              <th>상태</th>
+                            </tr>
+                          </thead>
+                          <tbody id="rv-detail-body"></tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div><!-- /seo-result -->
+
+          <!-- 빈 상태 -->
+          <div id="seo-empty" class="seo-empty">
+            <div class="seo-empty-icon"><i class="fa-solid fa-chart-column"></i></div>
+            <h3>키워드를 입력하고 SEO 분석을 시작하세요</h3>
+            <p>상위 플레이스의 SEO 점수와 리뷰를 종합 분석합니다.<br>Place ID를 함께 입력하면 내 매장을 경쟁사와 비교 진단하고 추적 등록할 수 있습니다.</p>
+          </div>
+
+        </div><!-- /seo-tab-analyze -->
+
+
+        <!-- ════════════════════════════════════════ -->
+        <!-- TAB 2: 추적 관리 (rank.html과 동일 구조) -->
+        <!-- ════════════════════════════════════════ -->
+        <div id="seo-tab-tracking" style="display:none;">
+
+          <div class="card" style="margin-bottom:var(--space-4);">
+            <div class="card-header">
+              <div>
+                <div class="card-title">추적 슬롯 현황</div>
+                <div class="card-subtitle" id="seo-slot-remain-text" style="margin-top:4px;font-size:12px;color:var(--color-gray-500);">슬롯 0/1 사용 중</div>
+              </div>
+              <div style="display:flex;align-items:center;gap:var(--space-3);">
+                <span style="font-size:13px;color:var(--color-gray-600);">
+                  <strong id="seo-slot-used">0</strong> / <strong id="seo-slot-max">1</strong> 사용 중
+                </span>
+                <button class="btn btn-secondary btn-sm" id="seo-btn-buy-slot" style="display:none;">
+                  슬롯 추가 (1,000 눈덩이)
+                </button>
+                <button class="btn btn-secondary btn-sm" id="seo-btn-refresh-tracks">새로고침</button>
+              </div>
+            </div>
+            <div class="card-body" style="padding:var(--space-3) var(--space-4);font-size:12px;color:var(--color-gray-500);">
+              자동 순위 추적은 매일 <strong style="color:var(--color-gray-700);">오전 6시(KST)</strong>에 수집됩니다. 날짜 카드를 클릭하면 스냅샷을 확인할 수 있습니다.
+            </div>
+          </div>
+
+          <div class="card" style="margin-bottom:var(--space-4);">
+            <div class="card-header">
+              <div class="card-title">추적 중인 키워드</div>
+            </div>
+            <div class="card-body" style="padding:0;">
+              <div id="seo-track-list" style="padding:var(--space-4);">
+                <div style="text-align:center;padding:var(--space-6);color:var(--color-gray-400);font-size:13px;">불러오는 중...</div>
+              </div>
+              <div id="seo-track-empty" style="display:none;padding:var(--space-6);text-align:center;color:var(--color-gray-400);font-size:13px;">
+                <div style="margin-bottom:8px;font-size:15px;font-weight:600;color:var(--color-gray-600);">추적 중인 키워드가 없습니다</div>
+                "SEO 분석" 탭에서 Place ID를 입력하고 분석 후 추적 등록할 수 있습니다.
+              </div>
+            </div>
+          </div>
+
+          <div class="card" id="seo-rank-chart-area" style="display:none;margin-bottom:var(--space-4);">
+            <div class="card-header">
+              <div>
+                <div class="card-title">순위 변동 추이</div>
+                <div class="card-subtitle" id="seo-rank-chart-title" style="margin-top:2px;font-size:12px;color:var(--color-gray-500);"></div>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="seo-rank-chart-wrap"><canvas id="seo-chart-rank-trend"></canvas></div>
+            </div>
+          </div>
+
+          <div class="card" id="seo-snapshot-area" style="display:none;">
+            <div class="card-header">
+              <div>
+                <div class="card-title" id="seo-snap-title">스냅샷</div>
+                <div class="card-subtitle" id="seo-snap-sub" style="margin-top:2px;font-size:12px;color:var(--color-gray-500);"></div>
+              </div>
+            </div>
+            <div class="card-body">
+              <div id="seo-snap-target-note" class="page-notice page-notice-info" style="display:none;margin-bottom:var(--space-4);"></div>
+              <div id="seo-snap-blur-notice" style="display:none;margin-bottom:var(--space-4);">
+                <div class="seo-plan-gate">
+                  <div class="seo-plan-gate-icon"><i class="fa-solid fa-lock"></i></div>
+                  <div class="seo-plan-gate-title">스냅샷 상세 데이터는 Standard 이상 플랜에서 확인할 수 있습니다</div>
+                  <div class="seo-plan-gate-desc">블로그/방문자/저장/이미지 수치가 모자이크 처리됩니다</div>
+                  <a class="btn btn-primary btn-sm" href="/app/settings/billing.html">플랜 업그레이드</a>
+                </div>
+              </div>
+              <div style="overflow-x:auto;">
+                <table class="seo-table" id="seo-snap-table">
+                  <thead>
+                    <tr>
+                      <th>순위</th>
+                      <th style="text-align:left;">업체명</th>
+                      <th>카테고리</th>
+                      <th>블로그</th>
+                      <th>방문자</th>
+                      <th>별점</th>
+                      <th>저장</th>
+                      <th>이미지</th>
+                    </tr>
+                  </thead>
+                  <tbody id="seo-snap-body"></tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+        </div><!-- /seo-tab-tracking -->
+
+      </main>
+    </div><!-- /app-main-wrapper -->
+  </div><!-- /app-layout -->
+
+  <script src="../../src/js/config.js"></script>
+  <script src="../../src/js/auth.js"></script>
+  <script src="../../src/js/api.js"></script>
+  <script src="../../src/js/sidebar.js"></script>
+  <script src="../../src/js/topbar.js"></script>
+  <script src="../../src/js/place-seo.js"></script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9f64a9689f590d05',t:'MTc3Nzg2Nzg5MA=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>

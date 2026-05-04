@@ -1,38 +1,112 @@
 (function () {
   'use strict';
 
-  var STORAGE_KEY = 'sherpa_cs_posts_v2';
-  var FAQ_ROWS = [
-    { id: 7, category: '결제/환불', title: 'PRO 요금제에서 결제 수단을 변경하고 싶습니다.', content: '결제 수단 변경 방법과 적용 시점을 안내합니다.' },
-    { id: 6, category: '계정/로그인', title: '카카오 간편 가입 후 이메일 계정과 연동할 수 있나요?', content: '소셜 계정과 이메일 계정 연동 가능 여부를 설명합니다.' },
-    { id: 5, category: '이용안내', title: '영수증 리뷰 모집/의뢰 시 플랫폼 수수료는 어떻게 되나요?', content: '미션 보상과 플랫폼 수수료 계산 기준을 정리합니다.' },
-    { id: 4, category: '이용안내', title: '출석체크는 하루에 한 번만 가능한가요?', content: '출석체크 가능 횟수와 리워드 정책을 안내합니다.' },
-    { id: 3, category: '플레이스', title: 'Place ID는 어디에서 확인하나요?', content: '네이버 플레이스 URL에서 Place ID를 확인하는 방법을 설명합니다.' },
-    { id: 2, category: '계정/탈퇴', title: '회원 탈퇴 전에 데이터 백업이 가능한가요?', content: '탈퇴 전 필요한 데이터 확인 절차를 안내합니다.' },
-    { id: 1, category: '고객센터', title: '카카오톡 상담 가능 시간은 언제인가요?', content: '실시간 상담 운영 시간을 안내합니다.' }
-  ];
   function qs(id) { return document.getElementById(id); }
-  function esc(v) { return window.SherpaCore && SherpaCore.escapeHTML ? SherpaCore.escapeHTML(v) : String(v == null ? '' : v); }
-  function loadRows() { try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}'); } catch (e) { return {}; } }
-  function getParams() { var u = new URL(window.location.href); return { tab: u.searchParams.get('tab') || 'faq', id: Number(u.searchParams.get('id') || 0) }; }
-  function findItem(tab, id) { if (tab === 'faq') return FAQ_ROWS.find(function (r) { return Number(r.id) === id; }) || null; var rows = loadRows(); var list = Array.isArray(rows[tab]) ? rows[tab] : []; for (var i = 0; i < list.length; i += 1) if (Number(list[i].id) === id) return list[i]; return null; }
-  document.addEventListener('DOMContentLoaded', function () {
-    if (!document.body.dataset.page || document.body.dataset.page !== 'support-cs-view') return;
-    var p = getParams();
-    var item = findItem(p.tab, p.id);
-    var label = p.tab === 'faq' ? '자주 묻는 질문 (FAQ)' : p.tab === 'qna' ? 'Q&A 게시판' : '1:1 문의';
+
+  function esc(v) {
+    return window.SherpaCore && SherpaCore.escapeHTML
+      ? SherpaCore.escapeHTML(v)
+      : String(v == null ? '' : v);
+  }
+
+  function getParams() {
+    var u = new URL(window.location.href);
+    return {
+      tab: u.searchParams.get('tab') || 'faq',
+      id:  Number(u.searchParams.get('id') || 0)
+    };
+  }
+
+  function renderItem(p, item) {
+    var labelMap = { faq: '자주 묻는 질문 (FAQ)', qna: 'Q&A 게시판', '1on1': '1:1 문의' };
+    var label = labelMap[p.tab] || 'CS';
+
     qs('cs-view-kicker').textContent = label;
     qs('cs-view-back').href = '/app/support/cs.html?tab=' + encodeURIComponent(p.tab);
-    qs('cs-view-write').style.display = p.tab === '1on1' ? 'inline-flex' : 'none';
-    if (!item) { qs('cs-view-title').textContent = '항목을 찾을 수 없습니다'; qs('cs-view-desc').textContent = '잘못된 경로이거나 저장되지 않은 데이터입니다.'; return; }
-    qs('cs-view-title').textContent = item.title;
-    qs('cs-view-desc').textContent = p.tab === 'faq' ? 'FAQ 상세 내용입니다.' : p.tab === 'qna' ? 'Q&A 게시글 상세입니다.' : (item.status === 'done' ? '답변완료 상태의 1:1 문의입니다.' : '답변대기 상태의 1:1 문의입니다.');
+
+    var writeBtn = qs('cs-view-write');
+    if (writeBtn) writeBtn.style.display = p.tab === '1on1' ? 'inline-flex' : 'none';
+
+    if (!item) {
+      qs('cs-view-title').textContent = '항목을 찾을 수 없습니다';
+      qs('cs-view-desc').textContent = '잘못된 경로이거나 존재하지 않는 항목입니다.';
+      return;
+    }
+
+    qs('cs-view-title').textContent = item.title || '제목 없음';
+
+    if (p.tab === 'faq') {
+      qs('cs-view-desc').textContent = 'FAQ 상세 내용입니다.';
+    } else if (p.tab === 'qna') {
+      qs('cs-view-desc').textContent = 'Q&A 게시글 상세입니다.';
+    } else {
+      var status = item.status || 'waiting';
+      qs('cs-view-desc').textContent = status === 'done' ? '답변완료 상태의 1:1 문의입니다.' : '답변대기 상태의 1:1 문의입니다.';
+    }
+
     var meta = [];
     if (item.category) meta.push('<span><strong>분류</strong> ' + esc(item.category) + '</span>');
-    if (item.author) meta.push('<span><strong>작성자</strong> ' + esc(item.author) + '</span>');
-    if (item.date) meta.push('<span><strong>작성일</strong> ' + esc(item.date) + '</span>');
+    if (item.author_name || item.author) meta.push('<span><strong>작성자</strong> ' + esc(item.author_name || item.author) + '</span>');
+    if (item.created_at || item.date) meta.push('<span><strong>작성일</strong> ' + esc(item.created_at ? String(item.created_at).slice(0, 16).replace('T', ' ') : item.date) + '</span>');
     if (item.status) meta.push('<span><strong>상태</strong> ' + (item.status === 'done' ? '답변완료' : '답변대기') + '</span>');
     qs('cs-view-meta').innerHTML = meta.join('');
+
     qs('cs-view-content').innerHTML = item.content || '<p>본문이 없습니다.</p>';
+
+    // 관리자 답변 표시 (1:1 티켓)
+    if (p.tab === '1on1' && item.admin_reply) {
+      var replyEl = qs('cs-view-admin-reply');
+      if (replyEl) {
+        replyEl.style.display = 'block';
+        var replyContent = qs('cs-view-admin-reply-content');
+        if (replyContent) replyContent.innerHTML = esc(item.admin_reply).replace(/\n/g, '<br>');
+      }
+    }
+  }
+
+  async function fetchAndRender() {
+    var p = getParams();
+
+    qs('cs-view-title').textContent = '불러오는 중...';
+    qs('cs-view-desc').textContent = '';
+
+    if (!window.SherpaAPI || !SherpaAPI.cs) {
+      qs('cs-view-title').textContent = 'API가 연결되지 않았습니다';
+      return;
+    }
+
+    try {
+      var item = null;
+
+      if (p.tab === 'faq') {
+        var res = await SherpaAPI.cs.faqDetail(p.id);
+        item = res.faq || null;
+
+      } else if (p.tab === 'qna') {
+        var res2 = await SherpaAPI.cs.qnaDetail(p.id);
+        item = res2.post || null;
+
+      } else if (p.tab === '1on1') {
+        // 1:1 티켓은 로그인 필요
+        if (window.SherpaAuth && !SherpaAuth.isLoggedIn()) {
+          qs('cs-view-title').textContent = '로그인이 필요합니다';
+          qs('cs-view-desc').textContent = '1:1 문의는 로그인 후 확인할 수 있습니다.';
+          return;
+        }
+        var res3 = await SherpaAPI.cs.ticketDetail(p.id);
+        item = res3.ticket || null;
+      }
+
+      renderItem(p, item);
+
+    } catch (err) {
+      qs('cs-view-title').textContent = '불러오지 못했습니다';
+      qs('cs-view-desc').textContent = SherpaAPI.errorMessage(err);
+    }
+  }
+
+  document.addEventListener('DOMContentLoaded', function () {
+    if (!document.body.dataset.page || document.body.dataset.page !== 'support-cs-view') return;
+    fetchAndRender();
   });
 })();
